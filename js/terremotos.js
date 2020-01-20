@@ -30,7 +30,7 @@ function terremotosGeonamesToGeoJSON(respuestaGeonames){
 
     function generarPeticionTerremotos() {
 
-        var peticion = 'http://api.geonames.org/earthquakesJSON?' +
+        var peticion = 'https://api.geonames.org/earthquakesJSON?' +
             'north=' + map.getBounds()._ne.lat + '&' +
             'south=' + map.getBounds()._sw.lat + '&' +
             'east=' + map.getBounds()._ne.lng + '&' +

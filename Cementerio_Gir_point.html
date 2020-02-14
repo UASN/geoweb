@@ -1,0 +1,43 @@
+ <html>
+<head>
+    <meta charset='utf-8' />
+    <title>Sepulturas cementerio Girona</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%
+        }
+    </style>
+    <script>
+     
+        function init() {
+            mapboxgl.accessToken =
+                'pk.eyJ1IjoidWFzbiIsImEiOiJjazQ5czg3b2swODJqM2VwOGM1bTR1cmo5In0.XuI9qwNflKYWoFor1TIkIg';
+            var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/uasn/ck6i4c1n001kt1ilmxkjvwyxy',
+                center: [2.837,41.972],
+                zoom: 17,
+                attributionControl: false
+            });
+            map.addControl(new mapboxgl.AttributionControl({compact: true}));
+            map.addControl(new mapboxgl.NavigationControl());
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <div id="map"></div>
+</body>
+
+</html>

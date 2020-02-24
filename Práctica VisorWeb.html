@@ -1,0 +1,625 @@
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Visor del Parque Fluvial de Pamplona</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css' rel='stylesheet' />
+        
+        
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            #map {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%
+            }
+        </style>
+    </head>
+    <body>
+        <style>
+            #menu {
+            background: #fff;
+            position: absolute;
+            z-index: 1;
+            top: 200px;
+            right: 10px;
+            border-radius: 3px;
+            width: 120px;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            font-family: 'Open Sans', sans-serif;
+            }
+            
+            #menu a {
+            font-size: 12px;
+            color: #404040;
+            display: block;
+            margin: 0;
+            padding: 0;
+            padding: 10px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+            text-align: center;
+            }
+            
+            #menu a:last-child {
+            border: none;
+            }
+            
+            #menu a:hover {
+            background-color: #f8f8f8;
+            color: #404040;
+            }
+            
+            #menu a.active {
+            background-color: #3887be;
+            color: #ffffff;
+            }
+            
+            #menu a.active:hover {
+            background: #3074a4;
+            }
+
+            .title-mobiliario{
+            background: #fff;
+            position: absolute;
+            z-index: 1;
+            top: 170px;
+            right: 10px;
+            border-radius: 3px;
+            width: 120px;
+            height: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+
+            .title{
+            background: #fff;
+            opacity: 0.7;
+            position: absolute;
+            z-index: 1;
+            top: 20px;
+            left:500px;
+            border-radius: 3px;
+            width: 400px;
+            height: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+
+            h1{
+                font-size:25px;
+                font-family: 'Open Sans', sans-serif;
+            }
+            h2{
+                font-size:15px;
+                font-family: 'Open Sans', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+        <script>
+         
+                function init() {
+                mapboxgl.accessToken ='pk.eyJ1IjoidWFzbiIsImEiOiJjazQ5czg3b2swODJqM2VwOGM1bTR1cmo5In0.XuI9qwNflKYWoFor1TIkIg';
+                
+                 var map = new mapboxgl.Map({
+                    container: 'map',
+                    style: 'mapbox://styles/uasn/ck6qbeefo1xbd1is9fe83tj2f',
+                    center: [-1.65,42.81],
+                    zoom: 12,
+                    hash: true,
+                    pitch: 0,
+                    attributionControl: false
+                });
+
+                map.addControl(new mapboxgl.AttributionControl({compact: true}));
+                map.addControl(new mapboxgl.NavigationControl());
+               
+
+                map.on('load', function () {
+
+                map.addSource("arbolsing", {
+                    type: "vector",
+                    url: "mapbox://uasn.4fypkmrk" 
+                }); 
+
+                map.addLayer({
+                    id: "arbolsing",
+                    type: "symbol",
+                    source: "arbolsing",
+                    'source-layer': "Arboles_singulares-8485rk", 
+                    layout:{
+                        'symbol-sort-key':3,
+                        'visibility': 'visible',
+                        'icon-image': 'park-15',
+                        'icon-size':1.5,
+                        "icon-allow-overlap":true
+                    }
+                });
+
+                map.addSource("Asadores", {
+                    type: "vector",
+                    url: "mapbox://uasn.81lnthqm" 
+                }); 
+
+                map.addLayer({
+                    id: "Asadores",
+                    type: "symbol",
+                    source: "Asadores",
+                    'source-layer': "Asadores-awzlk3", 
+                    layout:{
+                        'symbol-sort-key':3,
+                        'visibility': 'none',
+                        'icon-image': 'fire-station-11',
+                        'icon-size':1.5,
+                        "icon-allow-overlap":true
+                    }
+                });
+
+                map.addSource("Bancos", {
+                    type: "vector",
+                    url: "mapbox://uasn.2kj4vtwq" 
+                }); 
+
+                map.addLayer({
+                    id: "Bancos",
+                    type: "symbol",
+                    source: "Bancos",
+                    'source-layer': "Bancos-5x7ct8", 
+                    layout:{
+                        'symbol-sort-key':3,
+                        'visibility': 'none',
+                        'icon-image': 'marker-15',
+                        'icon-size':1.5,
+                        "icon-allow-overlap":true
+                    }
+                });
+
+                map.addSource("Kioskos", {
+                    type: "vector",
+                    url: "mapbox://uasn.dt5virhd" 
+                }); 
+
+                map.addLayer({
+                    id: "Kioskos",
+                    type: "symbol",
+                    source: "Kioskos",
+                    'source-layer': "Kioskos-0fkipo", 
+                    layout:{
+                        'symbol-sort-key':3,
+                        'visibility': 'none',
+                        'icon-image': 'town-hall-15',
+                        'icon-size':1.5,
+                        "icon-allow-overlap":true
+                    }
+                });
+
+                map.addSource("Merenderos", {
+                    type: "vector",
+                    url: "mapbox://uasn.dcoya990" 
+                }); 
+
+                map.addLayer({
+                    id: "Merenderos",
+                    type: "symbol",
+                    source: "Merenderos",
+                    'source-layer': "Merenderos-3pmgj9", 
+                    layout:{
+                        'symbol-sort-key':3,
+                        'visibility': 'none',
+                        'icon-image': 'picnic-site-15',
+                        'icon-size':1.5,
+                        "icon-allow-overlap":true
+                    }
+                });
+
+                map.addSource("WC", {
+                    type: "vector",
+                    url: "mapbox://uasn.cr17dduf" 
+                }); 
+
+                map.addLayer({
+                    id: "WC",
+                    type: "symbol",
+                    source: "WC",
+                    'source-layer': "WC-d4cnp4", 
+                    layout:{
+                        'symbol-sort-key':1,
+                        'visibility': 'none',
+                        'icon-image': 'toilet-15',
+                        'icon-size':1.5,
+                        "icon-allow-overlap":true
+                    }
+                });
+
+                var toggleableLayerIds = ['Asadores', 'Bancos', 'Kioskos', 'Merenderos', 'WC'];
+ 
+                for (var i = 0; i < toggleableLayerIds.length; i++) {
+                var id = toggleableLayerIds[i];
+                
+                var link = document.createElement('a');
+                link.href = '#';
+                link.className = 'active';
+                link.textContent = id;
+                
+                link.onclick = function(e) {
+                var clickedLayer = this.textContent;
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+                
+                if (visibility === 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+                } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+                }
+                };
+                
+                var layers = document.getElementById('menu');
+                layers.appendChild(link);
+                }
+
+                map.addSource("rios", {
+                    type: "vector",
+                    url: "mapbox://uasn.7rhd64vi" 
+                }); 
+
+                map.addLayer({
+                    id: "rios",
+                    type: "line",
+                    source: "rios",
+                    'source-layer': "HIDROG_Lin_HidroejeP-55vf4m", 
+                    layout:{
+                        'line-sort-key':2,
+                    },
+                    paint:{
+                        'line-color':"#1D5BEB",
+                        "line-width":1.5,
+                    }
+                });
+
+                map.addSource("bosquevalor", {
+                    type: "vector",
+                    url: "mapbox://uasn.80rdpfxi" 
+                }); 
+
+                map.addLayer({
+                    id: "bosquevalor",
+                    type: "fill",
+                    source: "bosquevalor",
+                    'source-layer': "Bosques_valor-6tcn4z", 
+                    layout:{
+                        'fill-sort-key':1,
+                    },
+                    paint:{
+                        'fill-color':"#17EB17",
+                        "fill-opacity":0.5,
+                    }
+                });
+
+                map.addSource("otrosbosques", {
+                    type: "vector",
+                    url: "mapbox://uasn.ah135ho2" 
+                }); 
+
+                map.addLayer({
+                    id: "otrosbosques",
+                    type: "fill",
+                    source: "otrosbosques",
+                    'source-layer': "Otros_bosques-2q2p6v", 
+                    layout:{
+                        'fill-sort-key':1,
+                    },
+                    paint:{
+                        'fill-color':"#007900",
+                        "fill-opacity":0.5,
+                    }
+                });
+
+                
+                map.addSource("plantaciones", {
+                    type: "vector",
+                    url: "mapbox://uasn.2un36uxu" 
+                }); 
+
+                map.addLayer({
+                    id: "plantaciones",
+                    type: "fill",
+                    source: "plantaciones",
+                    'source-layer': "Plantaciones-2u33ws", 
+                    layout:{
+                        'fill-sort-key':1,
+                    },
+                    paint:{
+                        'fill-color':"#983A00",
+                        "fill-opacity":0.5,
+                        
+                    }
+                });
+
+                map.addSource("jardines", {
+                    type: "vector",
+                    url: "mapbox://uasn.bqq59jt1" 
+                }); 
+
+                map.addLayer({
+                    id: "jardines",
+                    type: "fill",
+                    source: "jardines",
+                    'source-layer': "Jardines-1tw3l8", 
+                    layout:{
+                        'fill-sort-key':1,
+                    },
+                    paint:{
+                        'fill-color':"#F9F437",
+                        "fill-opacity":0.5,
+                    }
+                });
+
+                map.addSource("infra", {
+                    type: "vector",
+                    url: "mapbox://uasn.aphca0d4" 
+                }); 
+
+                map.addLayer({
+                    id: "infra",
+                    type: "fill-extrusion",
+                    source: "infra",
+                    'source-layer': "Infra-4f573k", 
+                    paint:{
+                        'fill-extrusion-color':"#F93737",
+                        "fill-extrusion-height":15
+                    }
+                });
+
+                map.moveLayer("otrosbosques","arbolsing");
+                map.moveLayer("infra","arbolsing");
+                map.moveLayer("jardines","arbolsing");
+                map.moveLayer("plantaciones","arbolsing");
+                map.moveLayer("bosquevalor","arbolsing");
+                map.moveLayer("rios","arbolsing");
+
+                map.moveLayer("arbolsing","Asadores");
+
+                map.moveLayer("arbolsing","Bancos");
+
+                map.moveLayer("arbolsing","Kioskos");
+
+                map.moveLayer("arbolsing","Merenderos");
+
+                map.moveLayer("arbolsing","WC"); 
+            });
+
+            map.on('click','arbolsing',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'arbolsing', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'arbolsing', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+
+            map.on('click','Asadores',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'Asadores', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'Asadores', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+
+            map.on('click','Bancos',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'Bancos', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'Bancos', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+
+            map.on('click','Kioskos',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'Kioskos', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'Kioskos', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+
+            map.on('click','Merenderos',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'Merenderos', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'Merenderos', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+
+            map.on('click','WC',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'WC', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'WC', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+
+            map.on('click','bosquevalor',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'bosquevalor', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'bosquevalor', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+            map.on('click','otrosbosques',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'otrosbosques', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'otrosbosques', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+            map.on('click','plantaciones',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'plantaciones', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'plantaciones', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+
+            map.on('click','jardines',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'jardines', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'jardines', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+
+
+            map.on('click','infra',function(e){
+            var text = "";
+            console.info(e);
+            for (key in e.features[0].properties){
+            text += "<b>"+key+"</b>:"+e.features[0].properties[key]+"<br>";
+            }
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML(text)
+                .addTo(map);
+            });
+            map.on('mouseenter', 'infra', function() {
+            map.getCanvas().style.cursor = 'pointer';                    
+            });
+            map.on('mouseleave', 'infra', function() {
+            map.getCanvas().style.cursor = '';                    
+            });
+            }
+
+    </script>
+    </body>
+    <body onload="init()">
+        <nav id="menu"></nav>
+        <div id="map"></div>
+        <div class="title-mobiliario"> <h2>Mobiliario</h2></div>
+        <div class="title"> <h1>Parque Fluvial de Pamplona</h1></div>
+    </body>
+    
+    </html>
